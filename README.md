@@ -1,7 +1,5 @@
 # Game Arcade
 
-Deadline: 20.08.2020
-
 ## Concept:
 
 My project is a small game arcade. I wanted try programming little games and create a gaming environment including a user login and options for customization.
@@ -21,7 +19,7 @@ scores of all the different registered users.
 ## Milestones (Requirements):
 
 10.: ERD is done (pen & paper)
-12.: the login and registration are done and a user can login via the UI (java + database connection, MySQL for database plus javafx)
+13.: the login and registration are done and a user can login via the UI (java + database connection, MySQL for database plus javafx)
 17.: Snake game (+ UI) is finished and playable (java + javafx)
 18.: the scoreboard is done incl UI (java + javafx + MySQL to save game score)
 19.: finishing touches
