@@ -18,12 +18,12 @@ scores of all the different registered users.
 
 ## Milestones (Requirements):
 
-10.: ERD is done (pen & paper)
-13.: the login and registration are done and a user can login via the UI (java + database connection, MySQL for database plus javafx)
-17.: Snake game (+ UI) is finished and playable (java + javafx)
-18.: the scoreboard is done incl UI (java + javafx + MySQL to save game score)
-19.: finishing touches
-20.: the presentation is done
+- 10.: ERD is done (pen & paper)
+- 13.: the login and registration are done and a user can login via the UI (java + database connection, MySQL for database plus javafx)
+- 17.: Snake game (+ UI) is finished and playable (java + javafx)
+- 18.: the scoreboard is done incl UI (java + javafx + MySQL to save game score)
+- 19.: finishing touches
+- 20.: the presentation is done
 
 ## Functions to implement in the future:
 - the options menu on the main screen of the game
