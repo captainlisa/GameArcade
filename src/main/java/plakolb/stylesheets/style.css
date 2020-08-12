@@ -1,0 +1,15 @@
+#headline {
+    -fx-text-fill: white;
+    -fx-padding: 30, 60;
+}
+
+.rootBox {
+    /*-fx-background-image: url("img\arcade.jpg");*/
+    -fx-background-color: #2E0259;
+}
+
+.button {
+    -fx-text-fill: #F29D52;
+    -fx-border-color: #7C05F2;
+    -fx-background-color: #7404BF;
+}
