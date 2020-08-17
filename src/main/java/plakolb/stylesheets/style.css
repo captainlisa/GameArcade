@@ -1,15 +1,42 @@
 #headline {
-    -fx-text-fill: white;
     -fx-padding: 30, 60;
 }
 
-.rootBox {
+.root-box {
     /*-fx-background-image: url("img\arcade.jpg");*/
     -fx-background-color: #2E0259;
+    -fx-alignment: top-center;
+    -fx-spacing: 30;
+}
+
+.title-box {
+    -fx-alignment: center;
+    -fx-padding: 50 0 0 0;
 }
 
 .button {
     -fx-text-fill: #F29D52;
     -fx-border-color: #7C05F2;
     -fx-background-color: #7404BF;
+}
+
+.button-box {
+    -fx-padding: 100 0 0 0;
+    -fx-alignment: center;
+    -fx-spacing: 40;
+}
+
+.grid-pane {
+    -fx-alignment: center;
+    -fx-vgap: 10;
+    -fx-hgap: 10;
+}
+
+.root-pane {
+    -fx-background-color: #2E0259;
+}
+
+#game-title {
+    -fx-alignment: center;
+    -fx-background-color: #2E0259;
 }

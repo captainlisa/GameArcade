@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PlayerDAOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-08-11T09:39:51" hostname="DESKTOP-SL2QC5S" time="0.278">
-  <properties/>
-  <testcase name="testInsertNewPlayer()" classname="PlayerDAOTest" time="0.278"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

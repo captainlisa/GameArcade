@@ -8,7 +8,7 @@ public class PlayerDAO {
 
     Connection connection;
 
-    public boolean loginPlayer(String username, String password) {
+    public boolean loginPlayer(String username, String password) throws SQLException {
         try {
             connection = openConnection();
             //check if username is registered
@@ -32,6 +32,7 @@ public class PlayerDAO {
 
                     if (passwordDatabase.equals(password)) {
                         System.out.println("You are now logged in.");
+                        return true;
                     }
                 }
             } else {
@@ -40,38 +41,12 @@ public class PlayerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConnection();
         return false;
     }
 
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
-        try {
-            connection = openConnection();
-            String passwordDatabase = "";
-            //check if old password is correct
-            PreparedStatement getOldPasswordQuery = connection.prepareStatement("SELECT password FROM player WHERE username = ?");
-            getOldPasswordQuery.setString(1, username);
-            getOldPasswordQuery.execute();
-            ResultSet rs = getOldPasswordQuery.executeQuery();
-            while (rs.next()) {
-                passwordDatabase = rs.getString("password");
-            }
-            if (passwordDatabase.equals(oldPassword)) {
-                System.out.println("Old password is not correct.");
-                return false;
-            } else {
-                //update to new password in database
-                PreparedStatement setNewPasswordQuery = connection.prepareStatement("UPDATE player SET password = ? WHERE username = ?");
-                setNewPasswordQuery.setString(1, newPassword);
-                setNewPasswordQuery.setString(2, username);
-                return setNewPasswordQuery.execute();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
-    public boolean registerNewPlayer(Player player) {
+    public boolean registerNewPlayer(Player player) throws SQLException {
         try {
             connection = openConnection();
             List<String> usernames = new ArrayList<>();
@@ -93,26 +68,65 @@ public class PlayerDAO {
                         return false;
                     } else {
                         //insert new player into database
-                        return insertNewPlayerToDatabase(player);
+                         return insertNewPlayerToDatabase(player);
                     }
                 }
             }
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        closeConnection();
         return false;
     }
 
     public boolean insertNewPlayerToDatabase(Player player) throws SQLException {
+
+        boolean isSuccessful = false;
         connection = openConnection();
         PreparedStatement insertStatement = connection.prepareStatement("INSERT INTO player (username, password) VALUES (?, ?)");
 
         insertStatement.setString(1, player.getUsername());
         insertStatement.setString(2, player.getPassword());
-        return insertStatement.execute();
+
+        if (insertStatement.executeUpdate() != 0) {
+            isSuccessful = true;
+        }
+
+        closeConnection();
+        return isSuccessful;
+    }
+
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
+        try {
+            boolean isSuccessful = false;
+            connection = openConnection();
+            String passwordDatabase = "";
+            //check if old password is correct
+            PreparedStatement getOldPasswordQuery = connection.prepareStatement("SELECT password FROM player WHERE username = ?");
+            getOldPasswordQuery.setString(1, username);
+            ResultSet rs = getOldPasswordQuery.executeQuery();
+            while (rs.next()) {
+                passwordDatabase = rs.getString("password");
+            }
+            if (passwordDatabase.equals(oldPassword)) {
+                System.out.println("Old password is not correct.");
+                return false;
+            } else {
+                //update to new password in database
+                PreparedStatement setNewPasswordQuery = connection.prepareStatement("UPDATE player SET password = ? WHERE username = ?");
+                setNewPasswordQuery.setString(1, newPassword);
+                setNewPasswordQuery.setString(2, username);
+
+                if (setNewPasswordQuery.executeUpdate() != 0) {
+                    isSuccessful = true;
+                }
+                return isSuccessful;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private Connection openConnection() throws SQLException {
