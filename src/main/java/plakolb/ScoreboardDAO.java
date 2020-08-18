@@ -2,12 +2,21 @@ package plakolb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ScoreboardDAO {
 
     Connection connection;
 
+
+    public void savePlayerScore(int score) throws SQLException {
+
+        openConnection();
+
+        PreparedStatement saveScore = connection.prepareStatement("");
+
+    }
 
     private Connection openConnection() throws SQLException {
         String database = "game_arcade";

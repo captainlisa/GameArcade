@@ -2,6 +2,7 @@ package plakolb;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -49,21 +50,25 @@ public class Snake extends Application {
         //stage styling
         stage.setTitle("SnakeSnack!");
         stage.setWidth(900);
-        stage.setHeight(675);
+        stage.setHeight(628);
 
         //creating new food on playground
         newFood();
 
         //root node
         BorderPane rootPane = new BorderPane();
+        rootPane.getStylesheets().add("file:///" + "C:/Users/codersbay/IdeaProjects/GameArcade/src/main/java/plakolb/stylesheets/style.css");
         rootPane.getStyleClass().add("root-pane");
-        rootPane.setPrefSize(900, 675);
 
         //node for title
-        Label gameTitle = new Label("Snake Snack!");
+        HBox titleBox = new HBox();
+        titleBox.getStyleClass().add("snake-title");
+        Label gameTitle = new Label("SNAKE SNACK!");
+        gameTitle.getStyleClass().add("game-title");
+        gameTitle.setFont(new Font("Consolas", 40));
         gameTitle.setTextFill(Paint.valueOf("#F29D52"));
-        gameTitle.setFont(new Font("Bahnschrift", 25));
-        gameTitle.setId("game-title");
+
+        titleBox.getChildren().add(gameTitle);
 
         //node for canvas
         Canvas playground = new Canvas(width*snekElementSize, height*snekElementSize);
@@ -90,8 +95,9 @@ public class Snake extends Application {
 
         //node for buttons
         HBox buttonBox = new HBox();
-        buttonBox.getStyleClass().add("button-box");
+        buttonBox.setSpacing(40);
         buttonBox.setAlignment(Pos.BOTTOM_CENTER);
+        buttonBox.setPadding(new Insets(10, 0, 0, 40));
 
         Button restartButton = new Button("Restart Game");
         restartButton.setFont(new Font("Consolas", 12));
@@ -119,7 +125,7 @@ public class Snake extends Application {
 
         //fill border pane
         rootPane.setCenter(playground);
-        rootPane.setTop(gameTitle);
+        rootPane.setTop(titleBox);
         rootPane.setBottom(buttonBox);
 
         //set scene...
@@ -160,6 +166,7 @@ public class Snake extends Application {
             context.setFill(Paint.valueOf("#F29D52"));
             context.setFont(new Font("Consolas", 40));
             context.fillText("GAME OVER", 150, 250);
+
             return;
         }
 

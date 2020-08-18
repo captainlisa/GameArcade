@@ -3,8 +3,10 @@
 }
 
 .root-box {
-    /*-fx-background-image: url("img\arcade.jpg");*/
-    -fx-background-color: #2E0259;
+    -fx-background-image: url("img/sporkle.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-color: #1C0A56;
     -fx-alignment: top-center;
     -fx-spacing: 30;
 }
@@ -15,9 +17,9 @@
 }
 
 .button {
-    -fx-text-fill: #F29D52;
-    -fx-border-color: #7C05F2;
-    -fx-background-color: #7404BF;
+    -fx-text-fill: #F7B253;
+    -fx-border-color: #210389;
+    -fx-background-color: #622988;
 }
 
 .button-box {
@@ -33,10 +35,13 @@
 }
 
 .root-pane {
-    -fx-background-color: #2E0259;
+    -fx-background-color: #1C0A56;
+    -fx-background-image: url("img/sporkle.jpg");
+    -fx-background-repeat: no-repeat;
 }
 
-#game-title {
-    -fx-alignment: center;
-    -fx-background-color: #2E0259;
+.snake-title {
+    -fx-alignment: top-center;
+    -fx-text-fill: #F7B253;
+    -fx-padding: 30 0 0 50;
 }

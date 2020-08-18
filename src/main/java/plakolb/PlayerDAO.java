@@ -32,6 +32,7 @@ public class PlayerDAO {
 
                     if (passwordDatabase.equals(password)) {
                         System.out.println("You are now logged in.");
+                        ArcadeGOOEY.LOGGED_IN = true;
                         return true;
                     }
                 }

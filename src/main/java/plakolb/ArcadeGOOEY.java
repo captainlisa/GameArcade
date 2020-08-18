@@ -13,25 +13,21 @@ import javafx.stage.Stage;
 
 public class ArcadeGOOEY extends Application {
 
+    public static boolean LOGGED_IN = false;
+    public static Player NEW_PLAYER;
+
     @Override
     public void start(Stage stage) throws Exception {
 
         //stage styling
         stage.setTitle("Game Arcade");
         stage.setWidth(900);
-        stage.setHeight(675);
+        stage.setHeight(628);
 
         //root node/parent node + styling
         VBox rootBox = new VBox();
         rootBox.getStylesheets().add("file:///" + "C:/Users/codersbay/IdeaProjects/GameArcade/src/main/java/plakolb/stylesheets/style.css");
         rootBox.getStyleClass().add("root-box");
-        rootBox.setPrefSize(900, 675);
-//        rootBox.setBackground(new Background(new BackgroundImage(
-//                new Image("C:\\Users\\codersbay\\IdeaProjects\\samples\\HelloFX\\Gradle\\ArcadeGame\\src\\img\\arcade.jpg"),
-//                BackgroundRepeat.NO_REPEAT,
-//                BackgroundRepeat.NO_REPEAT,
-//                BackgroundPosition.CENTER,
-//                BackgroundSize.DEFAULT)));
 
         //scene + styling
         Scene menu = new Scene(rootBox);
@@ -43,7 +39,7 @@ public class ArcadeGOOEY extends Application {
 
         Text title = new Text("GAME ARCADE");
         title.setId("headline");
-        title.setFill(Paint.valueOf("#F29D52"));
+        title.setFill(Paint.valueOf("#F7B253"));
         title.setFont(new Font("Bahnschrift", 50));
         titleBox.getChildren().add(title);
 
@@ -73,7 +69,17 @@ public class ArcadeGOOEY extends Application {
             }
         });
 
-        buttonBox.getChildren().addAll(loginButton, gameButton);
+        if (ArcadeGOOEY.LOGGED_IN) {
+            Button toProfilePage = new Button("Go to your Profile");
+            toProfilePage.setOnAction(event -> {
+                ProfileGOOEY profileGOOEY = new ProfileGOOEY();
+                profileGOOEY.showUserProfile(stage, ArcadeGOOEY.NEW_PLAYER);
+            });
+            buttonBox.getChildren().addAll(loginButton, gameButton, toProfilePage);
+        } else {
+            buttonBox.getChildren().addAll(loginButton, gameButton);
+        }
+
 
         //set scene and ACTION!
         rootBox.getChildren().addAll(titleBox, buttonBox);
