@@ -1,13 +1,27 @@
 package plakolb;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class GameDAO {
 
     Connection connection;
 
+    public int getGameId(Game game) throws SQLException {
+
+        connection = openConnection();
+        PreparedStatement getIdStmt = connection.prepareStatement("SELECT game_id FROM game WHERE game_name = ?");
+        getIdStmt.setString(1, game.getGameName());
+        ResultSet rs = getIdStmt.executeQuery();
+        int gameId = -1;
+
+        while (rs.next()) {
+            gameId = rs.getInt("game_id");
+        }
+
+        connection.close();
+
+        return gameId;
+    }
 
     private Connection openConnection() throws SQLException {
         String database = "game_arcade";
@@ -21,7 +35,4 @@ public class GameDAO {
 
     }
 
-    private void closeConnection() throws SQLException {
-        connection.close();
-    }
 }
