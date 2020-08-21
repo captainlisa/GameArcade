@@ -18,12 +18,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Snake extends Application {
 
+    Game snake = new Game("SnakeSnack!");
     int speed = 5;
     int foodColor = 0;
     int width = 20;
@@ -49,8 +51,8 @@ public class Snake extends Application {
     public void start(Stage stage) throws Exception {
         //stage styling
         stage.setTitle("SnakeSnack!");
-        stage.setWidth(900);
-        stage.setHeight(628);
+        stage.setWidth(1000);
+        stage.setHeight(725);
 
         //creating new food on playground
         newFood();
@@ -80,13 +82,21 @@ public class Snake extends Application {
             public void handle(long now) {
                 if (lastTick == 0) {
                     lastTick = now;
-                    tick(context);
+                    try {
+                        tick(context);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     return;
                 }
 
                 if (now - lastTick > 1_000_000_000 / speed) {
                     lastTick = now;
-                    tick(context);
+                    try {
+                        tick(context);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
@@ -97,7 +107,7 @@ public class Snake extends Application {
         HBox buttonBox = new HBox();
         buttonBox.setSpacing(40);
         buttonBox.setAlignment(Pos.BOTTOM_CENTER);
-        buttonBox.setPadding(new Insets(10, 0, 0, 40));
+        buttonBox.setPadding(new Insets(30, 0, 40, 0));
 
         Button restartButton = new Button("Restart Game");
         restartButton.setFont(new Font("Consolas", 12));
@@ -147,8 +157,6 @@ public class Snake extends Application {
             }
         });
 
-        //optimize control that you cannot override snek with itself (e.g. if direction == left you cannot go right)
-
         //add start snek elements
         snek.add(new SnakeElement(width/2, height/2));
         snek.add(new SnakeElement(width/2, height/2));
@@ -156,17 +164,19 @@ public class Snake extends Application {
 
         //... and ACTION!
         stage.setScene(snakeGame);
-        stage.centerOnScreen();
         stage.show();
 
     }
 
-    public void tick(GraphicsContext context) {
+    public void tick(GraphicsContext context) throws SQLException {
         if (gameOver) {
             context.setFill(Paint.valueOf("#F29D52"));
             context.setFont(new Font("Consolas", 40));
             context.fillText("GAME OVER", 150, 250);
-
+            if (ArcadeGOOEY.LOGGED_IN) {
+                ScoreboardDAO scoreboardDAO = new ScoreboardDAO();
+                scoreboardDAO.savePlayerScore(score, snake);
+            }
             return;
         }
 

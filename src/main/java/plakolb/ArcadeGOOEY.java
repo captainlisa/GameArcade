@@ -83,7 +83,6 @@ public class ArcadeGOOEY extends Application {
 
         //set scene and ACTION!
         rootBox.getChildren().addAll(titleBox, buttonBox);
-        stage.centerOnScreen();
         stage.show();
 
     }

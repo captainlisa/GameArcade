@@ -3,7 +3,7 @@
 }
 
 .root-box {
-    -fx-background-image: url("img/sporkle.jpg");
+    -fx-background-image: url("img/space-light.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: contain;
     -fx-background-color: #1C0A56;
@@ -20,6 +20,7 @@
     -fx-text-fill: #F7B253;
     -fx-border-color: #210389;
     -fx-background-color: #622988;
+    -fx-alignment: center;
 }
 
 .button-box {
@@ -36,12 +37,12 @@
 
 .root-pane {
     -fx-background-color: #1C0A56;
-    -fx-background-image: url("img/sporkle.jpg");
+    -fx-background-image: url("img/space-light.jpg");
     -fx-background-repeat: no-repeat;
 }
 
 .snake-title {
     -fx-alignment: top-center;
     -fx-text-fill: #F7B253;
-    -fx-padding: 30 0 0 50;
+    -fx-padding: 30 0 30 0;
 }

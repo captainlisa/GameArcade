@@ -42,7 +42,7 @@ public class PlayerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        closeConnection();
+        connection.close();
         return false;
     }
 
@@ -51,33 +51,22 @@ public class PlayerDAO {
         try {
             connection = openConnection();
             List<String> usernames = new ArrayList<>();
-            PreparedStatement selectUsername = connection.prepareStatement("SELECT username FROM player");
+            PreparedStatement selectUsername = connection.prepareStatement("SELECT * FROM player WHERE username = ?");
+            selectUsername.setString(1, player.getUsername());
             ResultSet rs = selectUsername.executeQuery();
 
             if (!rs.next()) {
                 //insert new player into database
                 return insertNewPlayerToDatabase(player);
             } else {
-                while (rs.next()) {
-                    usernames.add(rs.getString("username"));
-                }
-
-                //check if username already exists in database
-                for (String username : usernames) {
-                    if (username.equals(player.getUsername())) {
-                        System.out.println("Username already exists. Please choose another name.");
-                        return false;
-                    } else {
-                        //insert new player into database
-                         return insertNewPlayerToDatabase(player);
-                    }
-                }
+                System.out.println("Username already exists. Please choose another name.");
+                return false;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        closeConnection();
+        connection.close();
         return false;
     }
 
@@ -94,8 +83,24 @@ public class PlayerDAO {
             isSuccessful = true;
         }
 
-        closeConnection();
+        connection.close();
         return isSuccessful;
+    }
+
+    public int getPlayerId(Player player) throws SQLException {
+
+        connection = openConnection();
+        PreparedStatement getIdStmt = connection.prepareStatement("SELECT player_id FROM player WHERE username = ?");
+        getIdStmt.setString(1, player.getUsername());
+        ResultSet rs = getIdStmt.executeQuery();
+        int playerId = -1;
+
+        while (rs.next()) {
+            playerId = rs.getInt("player_id");
+        }
+
+        return playerId;
+
     }
 
     public boolean changePassword(String username, String oldPassword, String newPassword) {
@@ -141,8 +146,6 @@ public class PlayerDAO {
         return DriverManager.getConnection(connectionUrl);
     }
 
-    private void closeConnection() throws SQLException {
-        connection.close();
-    }
+
 
 }
